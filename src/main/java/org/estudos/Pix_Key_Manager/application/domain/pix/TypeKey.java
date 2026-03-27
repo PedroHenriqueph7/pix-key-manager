@@ -1,4 +1,4 @@
-package org.estudos.Pix_Key_Manager.domain.pix;
+package org.estudos.Pix_Key_Manager.application.domain.pix;
 
 import java.util.regex.Pattern;
 
