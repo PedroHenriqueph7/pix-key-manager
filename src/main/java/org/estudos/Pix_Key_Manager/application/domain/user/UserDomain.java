@@ -1,29 +1,27 @@
-package org.estudos.Pix_Key_Manager.domain.user;
+package org.estudos.Pix_Key_Manager.application.domain.user;
 
-import org.estudos.Pix_Key_Manager.domain.pix.PixKey;
-import org.estudos.Pix_Key_Manager.domain.pix.TypeKey;
+import org.estudos.Pix_Key_Manager.application.domain.pix.PixKeyDomain;
+import org.estudos.Pix_Key_Manager.application.domain.pix.TypeKey;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class User {
+public class UserDomain {
 
     private UUID id;
     private String name;
     private String cpf;
     private String email;
     private UserType userType;
-    private int quantityPixKeys;
-    List<PixKey> pixKeyList;
+    List<PixKeyDomain> pixKeyList;
 
-    public User(String name, String cpf, String email, UserType userType, int quantityPixKeys) {
+    public UserDomain(String name, String cpf, String email, UserType userType) {
+        this.id = UUID.randomUUID();
         this.name = name;
         this.cpf = cpf;
         this.email = email;
         this.userType = userType;
-        this.quantityPixKeys = quantityPixKeys;
         this.pixKeyList = new ArrayList<>();
     }
 
@@ -63,32 +61,25 @@ public class User {
         this.userType = userType;
     }
 
-    public int getQuantityPixKeys() {
-        return quantityPixKeys;
-    }
 
-    public void setQuantityPixKeys(int quantityPixKeys) {
-        this.quantityPixKeys = quantityPixKeys;
-    }
-
-    public void addPixKeys(PixKey pixKey) {
+    public void addPixKeys(PixKeyDomain pixKey) {
 
         if (userType.equals(UserType.PF)) {
-            if (quantityPixKeys > 5) { throw new RuntimeException("Quantidade de Chaves Pix excedidas");}
+            if (pixKeyList.size() > 5) { throw new RuntimeException("Quantidade de Chaves Pix excedidas");}
         }
 
         int quantidadeMaximaChavePixPorTipo = 0;
 
         switch (pixKey.getType()) {
-            case TypeKey.CPF:
+            case CPF:
                 quantidadeMaximaChavePixPorTipo = 1;
                 break;
-            case TypeKey.TELEFONE:
+            case TELEFONE:
                 quantidadeMaximaChavePixPorTipo = 5;
                 break;
-            case TypeKey.EMAIL:
+            case EMAIL:
                 quantidadeMaximaChavePixPorTipo = 5;
-            case TypeKey.ALEATORIA:
+            case ALEATORIA:
                 quantidadeMaximaChavePixPorTipo = 5;
             default:
                 System.out.println("Tipo de chave Pix não existente!!");
@@ -97,7 +88,6 @@ public class User {
         Long quantity = quantityTypePixKey(pixKey.getType());
         if (quantity >= quantidadeMaximaChavePixPorTipo) { throw new RuntimeException("Voce Já Possui o máximo de chave Pix do tipo" + pixKey.getType() +"cadastrado!!");}
         pixKeyList.add(pixKey);
-
     }
 
     public Long quantityTypePixKey(TypeKey type) {
