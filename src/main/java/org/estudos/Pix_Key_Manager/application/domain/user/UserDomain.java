@@ -1,10 +1,5 @@
 package org.estudos.Pix_Key_Manager.application.domain.user;
 
-import org.estudos.Pix_Key_Manager.application.domain.pix.PixKeyDomain;
-import org.estudos.Pix_Key_Manager.application.domain.pix.TypeKey;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class UserDomain {
@@ -14,7 +9,7 @@ public class UserDomain {
     private String cpf;
     private String email;
     private UserType userType;
-    List<PixKeyDomain> pixKeyList;
+    private int quantityPixKey;
 
     public UserDomain(String name, String cpf, String email, UserType userType) {
         this.id = UUID.randomUUID();
@@ -22,7 +17,6 @@ public class UserDomain {
         this.cpf = cpf;
         this.email = email;
         this.userType = userType;
-        this.pixKeyList = new ArrayList<>();
     }
 
     public UUID getId() {
@@ -61,38 +55,8 @@ public class UserDomain {
         this.userType = userType;
     }
 
+    public int getQuantityPixKey() { return quantityPixKey; }
 
-    public void addPixKeys(PixKeyDomain pixKey) {
+    public void setQuantityPixKey(int quantityPixKey) { this.quantityPixKey += quantityPixKey; }
 
-        if (userType.equals(UserType.PF)) {
-            if (pixKeyList.size() > 5) { throw new RuntimeException("Quantidade de Chaves Pix excedidas");}
-        }
-
-        int quantidadeMaximaChavePixPorTipo = 0;
-
-        switch (pixKey.getType()) {
-            case CPF:
-                quantidadeMaximaChavePixPorTipo = 1;
-                break;
-            case TELEFONE:
-                quantidadeMaximaChavePixPorTipo = 5;
-                break;
-            case EMAIL:
-                quantidadeMaximaChavePixPorTipo = 5;
-            case ALEATORIA:
-                quantidadeMaximaChavePixPorTipo = 5;
-            default:
-                System.out.println("Tipo de chave Pix não existente!!");
-        }
-
-        Long quantity = quantityTypePixKey(pixKey.getType());
-        if (quantity >= quantidadeMaximaChavePixPorTipo) { throw new RuntimeException("Voce Já Possui o máximo de chave Pix do tipo" + pixKey.getType() +"cadastrado!!");}
-        pixKeyList.add(pixKey);
-    }
-
-    public Long quantityTypePixKey(TypeKey type) {
-        Long quantity = pixKeyList.stream().filter( p -> p.getType() == type).count();
-
-        return quantity;
-    }
 }
