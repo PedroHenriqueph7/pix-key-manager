@@ -2,10 +2,8 @@ package org.estudos.Pix_Key_Manager.adapter.out.persistence.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.estudos.Pix_Key_Manager.application.domain.pix.PixKeyDomain;
 import org.estudos.Pix_Key_Manager.application.domain.user.UserType;
 
-import java.util.List;
 import java.util.UUID;
 
 @Setter
@@ -34,8 +32,7 @@ public class UserEntity {
     @Enumerated(value = EnumType.STRING)
     private UserType userType;
 
-    @OneToMany
-    @JoinColumn(name = "pix_key_list", nullable = false)
-    PixKeyDomain pixKey;
+    @Column(name = "quantity_pix_key", nullable = false)
+    private int quantityPixKey;
 
 }
