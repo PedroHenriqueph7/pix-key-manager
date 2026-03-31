@@ -5,6 +5,6 @@ import org.estudos.Pix_Key_Manager.application.domain.user.UserDomain;
 public interface RegisterUserOutPort {
     void save(UserDomain userDomain);
 
-    boolean exitsByCpf(String cpf);
-    boolean exitsByEmail(String email);
+    boolean existsByCpf(String cpf);
+    boolean existsByEmail(String email);
 }

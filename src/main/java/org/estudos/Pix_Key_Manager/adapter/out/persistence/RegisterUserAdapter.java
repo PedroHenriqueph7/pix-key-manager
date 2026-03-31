@@ -5,7 +5,9 @@ import org.estudos.Pix_Key_Manager.adapter.out.persistence.mappers.RegisterUserM
 import org.estudos.Pix_Key_Manager.adapter.out.persistence.repository.JpaUserRepository;
 import org.estudos.Pix_Key_Manager.application.domain.user.UserDomain;
 import org.estudos.Pix_Key_Manager.application.ports.out.RegisterUserOutPort;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RegisterUserAdapter implements RegisterUserOutPort {
 
     private final JpaUserRepository repository;
@@ -23,12 +25,12 @@ public class RegisterUserAdapter implements RegisterUserOutPort {
     }
 
     @Override
-    public boolean exitsByCpf(String cpf) {
+    public boolean existsByCpf(String cpf) {
         return repository.existsByCpf(cpf);
     }
 
     @Override
-    public boolean exitsByEmail(String email) {
+    public boolean existsByEmail(String email) {
         return repository.existsByEmail(email);
     }
 }

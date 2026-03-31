@@ -22,8 +22,8 @@ public class RegisterUserUseCase implements RegisterUserInPort {
 
         if (userDomain == null) {throw new NullUserException("Usuario com o valor nulo!");}
 
-        boolean jaExisteCpf = registerUserOutPort.exitsByCpf(userDomain.getCpf());
-        boolean jaExisteEmail = registerUserOutPort.exitsByEmail(userDomain.getEmail());
+        boolean jaExisteCpf = registerUserOutPort.existsByCpf(userDomain.getCpf());
+        boolean jaExisteEmail = registerUserOutPort.existsByEmail(userDomain.getEmail());
 
         if (jaExisteCpf) { throw new CpfAlreadyExistsException("Este cpf já esta cadastrado em uma outra conta!");}
         if (jaExisteEmail) {throw new EmailAlreadyExistsException("Não foi possivel cadastrar o email, pois o email já esta vinculado a uma conta!");}
